@@ -4,19 +4,14 @@ import os
 class Screenshot:
 
     def __init__(self, fit):
-        print(fit)
-        self.path = '{}{}'.format(os.getcwd(), fit)
-        print(self.path)
-        print(fit)
+        self.path = '{}/{}'.format(os.getcwd(), fit)
 
-    def getImage(self, full, name, url, format, heigth = 800, width = 600):
+    def getImage(self, full, name, url, fmt, heigth = '800', width = '600'):
         if(full == True):
-            localScript = self.path + '/firefoxSreenshot.sh'
-            subprocess.call([localScript, name, format, url])
+            localScript = '{}/firefoxScreenshot.sh'.format(self.path)
+            fileName = os.path.abspath('{}/../temp/screenshots/{}.{}'.format(self.path, name, fmt))
+            subprocess.call([localScript, fileName, url])
         else:
-            localScript = self.path + '/chromeScreenshot.sh'
-            subprocess.call([localScript, name, format, heigth, width, url])
-
-
-screenshot = Screenshot('')
-screenshot.getImage(True, 'google', 'https://google.com', 'png')
+            localScript = '{}/chromeScreenshot.sh'.format(self.path)
+            fileName = os.path.abspath('{}/../temp/screenshots/{}.{}'.format(self.path, name, fmt))
+            subprocess.call([localScript, fileName, heigth, width, url])
