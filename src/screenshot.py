@@ -1,5 +1,7 @@
-import subprocess
+from subprocess import STDOUT, check_output
 import os
+
+TIMEOUT = 15
 
 class Screenshot:
 
@@ -10,10 +12,16 @@ class Screenshot:
         if(full == True):
             localScript = '{}/firefoxScreenshot.sh'.format(self.path)
             fileName = os.path.abspath('{}/../temp/screenshots/{}.{}'.format(self.path, name, fmt))
-            subprocess.call([localScript, fileName, url])
-            return True
+            try:
+                output = check_output([localScript, fileName, url, str(TIMEOUT)], stderr=STDOUT, timeout=TIMEOUT)
+                return True
+            except:
+                return False
         else:
             localScript = '{}/chromeScreenshot.sh'.format(self.path)
             fileName = os.path.abspath('{}/../temp/screenshots/{}.{}'.format(self.path, name, fmt))
-            subprocess.call([localScript, fileName, heigth, width, url])
-            return True
+            try:
+                output = check_output([localScript, fileName, heigth, width, url, str(TIMEOUT)], stderr=STDOUT, timeout=TIMEOUT)
+                return True
+            except:
+                return False

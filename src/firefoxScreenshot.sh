@@ -1,3 +1,3 @@
 #!/bin/sh
 
-firefox --screenshot $1 $2
+timeout $3 firefox --screenshot $1 $2
