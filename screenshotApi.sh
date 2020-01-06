@@ -19,7 +19,7 @@ case $1 in
         ;;
     install_dependencies)
         echo "Installing the dependencies"
-        
+        ;;
     *)
         echo "Usage: ./screenshotApi.sh {start_debug | start | generate_key}"
         ;;

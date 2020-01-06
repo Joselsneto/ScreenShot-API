@@ -6,33 +6,40 @@ from urllib.parse import urlparse
 import time
 import calendar
 import os
+from src.verifyKey import VerifyKey
 
 app = Flask(__name__)
 api = Api(app)
 
 class GetScreenshot(Resource):
     def post(self):
-        print(request.json)
-        url = request.json['url']
-        full = request.json['options']['fullPage']
-        formatType = request.json['options']['type']
-        quality = request.json['options']['quality']
+        token = request.args.get('token')
 
-        netloc = urlparse(url).netloc
-        netloc = netloc.replace('.', '_')
-        netloc = netloc.replace(':', '_')
-        ts = calendar.timegm(time.gmtime())
-        filename = '{}_{}'.format(ts, netloc)
+        verify = VerifyKey(token)
+        if(verify.isAuthorized()):
+            url = request.json['url']
+            full = request.json['options']['fullPage']
+            formatType = request.json['options']['type']
+            quality = request.json['options']['quality']
 
-        screenshot = Screenshot('/src')
-        answer = screenshot.getImage(full, filename, url, formatType)
+            netloc = urlparse(url).netloc
+            netloc = netloc.replace('.', '_')
+            netloc = netloc.replace(':', '_')
+            ts = calendar.timegm(time.gmtime())
+            filename = '{}_{}'.format(ts, netloc)
 
-        if(answer == True):
-            mimeType = 'image/{}'.format(formatType)
-            filename = './temp/screenshots/{}.{}'.format(filename, formatType)
-            return send_file(filename, mimetype=mimeType)
+            screenshot = Screenshot('/src')
+            answer = screenshot.getImage(full, filename, url, formatType)
+
+            if(answer == True):
+                mimeType = 'image/{}'.format(formatType)
+                filename = './temp/screenshots/{}.{}'.format(filename, formatType)
+                return send_file(filename, mimetype=mimeType)
+            else:
+                return {'status':'false'}
+        
         else:
-            return {'status':'false'}
+            return {'status':'unauthorized'}
 
 api.add_resource(GetScreenshot, '/screenshot')
 
