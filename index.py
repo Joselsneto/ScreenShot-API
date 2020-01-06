@@ -1,5 +1,39 @@
 from src.screenshot import Screenshot
+from flask import Flask, request, send_file
+from flask_restful import Resource, Api
+from json import dumps
+from urllib.parse import urlparse
+import time
+import calendar
 
-fit = 'src'
-screenshot = Screenshot(fit)
-screenshot.getImage(False, 'google', 'https://google.com', 'png')
+app = Flask(__name__)
+api = Api(app)
+
+class GetScreenshot(Resource):
+    def post(self):
+        print(request.json)
+        url = request.json['url']
+        full = request.json['options']['fullPage']
+        formatType = request.json['options']['type']
+        quality = request.json['options']['quality']
+
+        netloc = urlparse(url).netloc
+        netloc = netloc.replace('.', '_')
+        netloc = netloc.replace(':', '_')
+        ts = calendar.timegm(time.gmtime())
+        filename = '{}_{}'.format(ts, netloc)
+
+        screenshot = Screenshot('/src')
+        answer = screenshot.getImage(full, filename, url, formatType)
+
+        if(answer == True):
+            mimeType = 'image/{}'.format(formatType)
+            filename = './temp/screenshots/{}.{}'.format(filename, formatType)
+            return send_file(filename, mimetype=mimeType)
+        else:
+            return {'status':'false'}
+
+api.add_resource(GetScreenshot, '/screenshot')
+
+if __name__ == '__main__':
+    app.run(port='5002')
