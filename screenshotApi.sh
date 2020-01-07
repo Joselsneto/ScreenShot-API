@@ -18,7 +18,12 @@ case $1 in
         echo $NEW_UUID >> authorized_keys
         ;;
     install_dependencies)
-        echo "Installing the dependencies"
+        echo "Installing the pip dependencies"
+        ;;
+    stop)
+        echo "Stoping screenshot API"
+        kill $(pgrep -f '/bin/sh ./src/deleteScreenshots.sh')
+        kill $(pgrep -f 'python3 index.py')
         ;;
     *)
         echo "Usage: ./screenshotApi.sh {start_debug | start | generate_key}"
