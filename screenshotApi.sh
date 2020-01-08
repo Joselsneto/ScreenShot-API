@@ -18,11 +18,11 @@ case $1 in
         echo $NEW_UUID >> authorized_keys
         ;;
     install)
-        mkdir -p temp/screenshot
-        pip3 install subprocess
+        mkdir -p temp/screenshots
         pip3 install flask
         pip3 install flask-restful
         pip3 install flask-jsonpify
+
         ;;
     stop)
         echo "Stoping screenshot API"
@@ -30,7 +30,7 @@ case $1 in
         kill $(pgrep -f 'python3 index.py')
         ;;
     *)
-        echo "Usage: ./screenshotApi.sh {start_debug | start | generate_key}"
+        echo "Usage: ./screenshotApi.sh {start_debug | start | generate_key | install}"
         ;;
 esac
 
