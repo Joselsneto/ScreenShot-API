@@ -17,8 +17,12 @@ case $1 in
         echo $NEW_UUID
         echo $NEW_UUID >> authorized_keys
         ;;
-    install_dependencies)
-        echo "Installing the pip dependencies"
+    install)
+        mkdir -p temp/screenshot
+        pip3 install subprocess
+        pip3 install flask
+        pip3 install flask-restful
+        pip3 install flask-jsonpify
         ;;
     stop)
         echo "Stoping screenshot API"
