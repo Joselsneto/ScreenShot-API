@@ -44,4 +44,4 @@ class GetScreenshot(Resource):
 api.add_resource(GetScreenshot, '/screenshot')
 
 if __name__ == '__main__':
-    app.run(port='5002')
+    app.run()

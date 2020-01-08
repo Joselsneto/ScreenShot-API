@@ -8,6 +8,7 @@ class VerifyKey:
         self.path = os.path.abspath('{}/{}'.format(os.getcwd(), 'authorized_keys'))
     
     def isAuthorized(self):
+        fp = None
         try:
             fp = open(self.path)
             line = fp.readline()
