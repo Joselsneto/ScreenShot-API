@@ -17,7 +17,7 @@ class GetScreenshot(Resource):
     def post(self):
         token = request.args.get('token')
 
-        verify = VerifyKey(token)
+        verify = VerifyKey(PATH, token)
         if(verify.isAuthorized()):
             url = request.json['url']
             full = request.json['options']['fullPage']

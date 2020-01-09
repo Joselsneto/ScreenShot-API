@@ -28,7 +28,7 @@ case $1 in
         ;;
     stop)
         echo "Stoping screenshot API"
-        kill $(pgrep -f '/bin/sh ./src/deleteScreenshots.sh')
+        kill $(pgrep -f "/bin/sh ${PROJECTPATH}/src/deleteScreenshots.sh")
         kill $(pgrep -f 'python3 index.py')
         ;;
     *)

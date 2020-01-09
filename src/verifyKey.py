@@ -3,9 +3,9 @@ import os
 
 class VerifyKey:
 
-    def __init__(self, key):
+    def __init__(self, path, key):
         self.key = key
-        self.path = os.path.abspath('{}/{}'.format(os.getcwd(), 'authorized_keys'))
+        self.path = os.path.abspath('{}/{}'.format(path, 'authorized_keys'))
     
     def isAuthorized(self):
         fp = None
