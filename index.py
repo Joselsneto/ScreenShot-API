@@ -11,6 +11,8 @@ from src.verifyKey import VerifyKey
 app = Flask(__name__)
 api = Api(app)
 
+PATH = '/home/jose/Projects/malware-patrol/ScreenShot-API'
+
 class GetScreenshot(Resource):
     def post(self):
         token = request.args.get('token')
@@ -28,7 +30,7 @@ class GetScreenshot(Resource):
             ts = calendar.timegm(time.gmtime())
             filename = '{}_{}'.format(ts, netloc)
 
-            screenshot = Screenshot('/src')
+            screenshot = Screenshot(PATH, '/src')
             answer = screenshot.getImage(full, filename, url, formatType)
 
             if(answer == True):

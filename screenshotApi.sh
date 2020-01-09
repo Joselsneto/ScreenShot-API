@@ -1,15 +1,17 @@
 #!/bin/sh
 
+PROJECTPATH="/home/jose/Projects/malware-patrol/ScreenShot-API"
+
 case $1 in
     start_debug)
         echo "Starting screenshot API in debug mode"
-        ./src/deleteScreenshots.sh &
+        $PROJECTPATH/src/deleteScreenshots.sh &
         python3 index.py &
         ;;
     start)
         # Change to production mode
         echo "Starting screenshot API"
-        ./src/deleteScreenshots.sh &
+        $PROJECTPATH/src/deleteScreenshots.sh &
         python3 index.py &
         ;;
     generate_key)

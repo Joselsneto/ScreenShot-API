@@ -5,8 +5,9 @@ TIMEOUT = 15
 
 class Screenshot:
 
-    def __init__(self, fit):
-        self.path = os.path.abspath('{}/{}'.format(os.getcwd(), fit))
+    def __init__(self, path, fit):
+        self.path = os.path.abspath('{}/{}'.format(path, fit))
+        print(path)
 
     def getImage(self, full, name, url, fmt, heigth = '800', width = '600'):
         if(full == True):
