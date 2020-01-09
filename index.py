@@ -16,7 +16,6 @@ PATH = '/home/jose/Projects/malware-patrol/ScreenShot-API'
 class GetScreenshot(Resource):
     def post(self):
         token = request.args.get('token')
-
         verify = VerifyKey(PATH, token)
         if(verify.isAuthorized()):
             url = request.json['url']

@@ -7,14 +7,14 @@ class Screenshot:
 
     def __init__(self, path, fit):
         self.path = os.path.abspath('{}/{}'.format(path, fit))
-        print(path)
 
     def getImage(self, full, name, url, fmt, heigth = '800', width = '600'):
         if(full == True):
             localScript = '{}/firefoxScreenshot.sh'.format(self.path)
             fileName = os.path.abspath('{}/../temp/screenshots/{}.{}'.format(self.path, name, fmt))
             try:
-                output = check_output([localScript, fileName, url, str(TIMEOUT)], stderr=STDOUT, timeout=TIMEOUT)
+                command = 'timeout ' + str(TIMEOUT) + ' firefox --screenshot ' + fileName + ' ' + url
+                os.system(command)
                 return True
             except:
                 return False
@@ -22,7 +22,8 @@ class Screenshot:
             localScript = '{}/chromeScreenshot.sh'.format(self.path)
             fileName = os.path.abspath('{}/../temp/screenshots/{}.{}'.format(self.path, name, fmt))
             try:
-                output = check_output([localScript, fileName, heigth, width, url, str(TIMEOUT)], stderr=STDOUT, timeout=TIMEOUT)
+                command = 'timeout ' + str(TIMEOUT) + ' firefox --screenshot ' + fileName + ' --window-size=' + str(heigth) + ',' + str(width) + ' ' + url 
+                os.system(command)
                 return True
             except:
                 return False
