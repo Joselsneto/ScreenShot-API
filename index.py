@@ -52,7 +52,7 @@ class GetScreenshot(Resource):
                 return {'error':answer.first, 'error-description':answer.second}
         
         else:
-            return {'status':'unauthorized'}
+            return {'error': Errors.UNAUTHORIZED.first, 'error-description': Errors.UNAUTHORIZED.second}
 
 api.add_resource(GetScreenshot, '/screenshot')
 

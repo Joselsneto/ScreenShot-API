@@ -19,3 +19,5 @@ class Errors:
     TIMEOUT_EXPIRED             = Pair(-200, "Timeout expired")
 
     UNKNOWN_ERROR               = Pair(-300, "Unknown error, please create an issue with the request in https://github.com/Joselsneto/ScreenShot-API/issues")
+
+    UNAUTHORIZED                = Pair(-400, "Unauthorized")
