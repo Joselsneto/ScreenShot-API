@@ -3,6 +3,6 @@
 
 while :
 do
-    find ./temp/screenshots -mmin +1 -type f -exec rm -fv {} \;
+    find $1 -mmin +1 -type f -exec rm -fv {} \;
     sleep 10
 done
