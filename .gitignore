@@ -1,2 +1,4 @@
 ./temp/screenshots/
 authorized_keys
+__pycache__
+./src/__pycache__
