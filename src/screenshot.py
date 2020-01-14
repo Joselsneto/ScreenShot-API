@@ -22,7 +22,7 @@ class Screenshot:
                 return Errors.TIMEOUT_EXPIRED
             except Exception as e:
                 print(str(e))
-                return Errors.UNKNOWN_ERROR
+                return Errors.exceptionError(str(e))
         else:
             fileName = os.path.abspath('{}/{}.{}'.format(self.screenshotPath, name, fmt))
             try:
@@ -34,4 +34,4 @@ class Screenshot:
                 return Errors.TIMEOUT_EXPIRED
             except Exception as e:
                 print(str(e))
-                return Errors.UNKNOWN_ERROR
+                return Errors.exceptionError(str(e))

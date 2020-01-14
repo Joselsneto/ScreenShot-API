@@ -1,11 +1,10 @@
 from collections import namedtuple
 
-
+Pair = namedtuple("Pair", ["first", "second"])
 
 class Errors:
 
     VALID_FORMAT_TYPES = ['jpeg', 'png', 'jpg']
-    Pair = namedtuple("Pair", ["first", "second"])
 
     URL_IS_NOT_STRING           = Pair(-100, "The url must be a string")
     MALFORMED_URL               = Pair(-101, "Invalid url")
@@ -21,3 +20,9 @@ class Errors:
     UNKNOWN_ERROR               = Pair(-300, "Unknown error, please create an issue with the request in https://github.com/Joselsneto/ScreenShot-API/issues")
 
     UNAUTHORIZED                = Pair(-400, "Unauthorized")
+
+    def exceptionError(e):
+        return Pair(-301, e)
+
+    def httpError(e):
+        return Pair(-500, e)

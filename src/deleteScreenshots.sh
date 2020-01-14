@@ -3,6 +3,8 @@
 
 while :
 do
-    find $1 -mmin +1 -type f -exec rm -fv {} \;
+    find $1 -mmin +1 -type f -name "mps_*.png" -exec rm -fv {} \;
+    find $1 -mmin +1 -type f -name "mps_*.jpg" -exec rm -fv {} \;
+    find $1 -mmin +1 -type f -name "mps_*.jpeg" -exec rm -fv {} \;
     sleep 10
 done

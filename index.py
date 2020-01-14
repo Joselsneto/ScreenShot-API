@@ -39,7 +39,7 @@ class GetScreenshot(Resource):
             netloc = netloc.replace('.', '_')
             netloc = netloc.replace(':', '_')
             ts = calendar.timegm(time.gmtime())
-            filename = '{}_{}'.format(ts, netloc)
+            filename = 'mps_{}_{}'.format(ts, netloc)
 
             screenshot = Screenshot(SCREENSHOT_PATH, FIREFOX_PATH)
             answer = screenshot.getImage(full, filename, url, formatType)

@@ -24,12 +24,12 @@ class Checker:
             if(int(resp[0]['status']) < 400):
                 return 0
             else:
-                return Errors.UNKNOWN_ERROR
+                return Errors.httpError('http status {}'.format(resp[0]['status']))
         except httplib2.ServerNotFoundError:
             return Errors.URL_NOT_FOUND
         except Exception as e:
             print(str(e))
-            return Errors.UNKNOWN_ERROR
+            return Errors.exceptionError(str(e))
 
         return 0
 

@@ -19,13 +19,14 @@ case $1 in
     generate_key)
         NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
         echo $NEW_UUID
-        echo $NEW_UUID >> $KEYS_PATH/authorized_keys
+        echo "${NEW_UUID} # $2" >> $KEYS_PATH/authorized_keys
         ;;
     install)
         mkdir -p $SCREENSHOT_PATH
         pip3 install flask
         pip3 install flask-restful
         pip3 install flask-jsonpify
+        pip3 install httplib2
         ;;
     stop)
         echo "Stoping screenshot API"

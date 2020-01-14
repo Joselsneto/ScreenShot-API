@@ -13,7 +13,7 @@ class VerifyKey:
             fp = open(self.path)
             line = fp.readline()
             while line:
-                if(line.strip() == self.key):
+                if(line.strip().split()[0] == self.key):
                     return True
                 line = fp.readline()
         except:
