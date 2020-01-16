@@ -11,31 +11,25 @@ class Screenshot:
         self.screenshotPath = screenshotPath
         self.firefoxPath = firefoxPath
 
-    def getImage(self, full, name, url, fmt, heigth = '800', width = '600'):
-        if(full == True):
-            fileName = os.path.abspath('{}/{}.{}'.format(self.screenshotPath, name, 'png'))
-            try:
-                command = 'timeout {} {} --screenshot {} {}'.format(TIMEOUT, self.firefoxPath, fileName, url)
-                output = check_output(command, stderr=STDOUT, shell=True, timeout=TIMEOUT)
-                newFile = os.path.abspath('{}/{}.{}'.format(self.screenshotPath, name, fmt))
-                ImageConverter.convert(fileName, fmt, newFile)
-                return 0
-            except TimeoutExpired:
-                return Errors.TIMEOUT_EXPIRED
-            except Exception as e:
-                print(str(e))
-                return Errors.exceptionError(str(e))
-        else:
-            fileName = os.path.abspath('{}/{}.{}'.format(self.screenshotPath, name, 'png'))
-            try:
-                # command = 'timeout ' + str(TIMEOUT) + ' firefox --screenshot ' + fileName + ' --window-size=' + str(heigth) + ',' + str(width) + ' ' + url 
-                command = 'timeout {} {} --screenshot {} --window-size={},{} {}'.format(TIMEOUT, self.firefoxPath, fileName, heigth, width, url)
-                output = check_output(command, stderr=STDOUT, shell=True, timeout=TIMEOUT)
-                newFile = os.path.abspath('{}/{}.{}'.format(self.screenshotPath, name, fmt))
-                ImageConverter.convert(fileName, fmt, newFile)
-                return 0
-            except TimeoutExpired:
-                return Errors.TIMEOUT_EXPIRED
-            except Exception as e:
-                print(str(e))
-                return Errors.exceptionError(str(e))
+    def createCommand(self, full, fileName, url, tor, torProfile, heigth = '800', width = '600'):
+        command = 'timeout {} {} --screenshot {}'.format(TIMEOUT, self.firefoxPath, fileName)
+        if(full == False):
+            command = '{} --window-size={},{}'.format(command, heigth, width)
+        if(tor == True):
+            command = '{} -P {}'.format(command, torProfile)
+        command = '{} {}'.format(command, url)
+        return command
+
+    def getImage(self, full, name, url, fmt, tor, torProfile, heigth = '800', width = '600'):        
+        try:
+            fileName = os.path.abspath('{}/{}.png'.format(self.screenshotPath, name))
+            command = self.createCommand(full, fileName, url, tor, torProfile, heigth, width)
+            output = check_output(command, stderr=STDOUT, shell=True, timeout=TIMEOUT)
+            newFile = os.path.abspath('{}/{}.{}'.format(self.screenshotPath, name, fmt))
+            ImageConverter.convert(fileName, fmt, newFile)
+            return 0
+        except TimeoutExpired:
+            return Errors.TIMEOUT_EXPIRED
+        except Exception as e:
+            print(str(e))
+            return Errors.exceptionError(str(e))    

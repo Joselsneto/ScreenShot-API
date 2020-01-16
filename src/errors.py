@@ -14,6 +14,7 @@ class Errors:
     INVALID_FORMAT_TYPE         = Pair(-105, "Format type must be one of the following: " + ', '.join(VALID_FORMAT_TYPES))
     QUALITY_IS_NOT_INT          = Pair(-106, "Quality must be an int")
     QUALITY_OUT_OF_BOUNDS       = Pair(-107, "Quality value must be between 0 and 100")
+    TOR_IS_NOT_BOOL             = Pair(-108, "Tor must be a bool")
 
     TIMEOUT_EXPIRED             = Pair(-200, "Timeout expired")
 

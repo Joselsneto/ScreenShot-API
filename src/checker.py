@@ -4,11 +4,12 @@ import httplib2
 
 class Checker:
     
-    def __init__(self, url, full, formatType, quality):
+    def __init__(self, url, full, formatType, quality, tor):
         self.url = url
         self.full = full
         self.formatType = formatType
         self.quality = quality
+        self.tor = tor
 
     def verifyUrl(self):
         if(type(self.url) != str):
@@ -58,6 +59,12 @@ class Checker:
 
         return 0
 
+    def verifyTor(self):
+        if(type(self.tor) != bool):
+            return Errors.TOR_IS_NOT_BOOL
+
+        return 0
+
     def verifyAll(self):
         answer = self.verifyUrl()
         if(answer != 0):
@@ -72,6 +79,10 @@ class Checker:
             return answer
 
         answer = self.verifyQuality()
+        if(answer != 0):
+            return answer
+
+        answer = self.verifyTor()
         if(answer != 0):
             return answer
 

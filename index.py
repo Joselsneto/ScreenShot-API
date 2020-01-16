@@ -17,6 +17,7 @@ api = Api(app)
 KEYS_PATH = '/home/jose/Projects/malware-patrol/ScreenShot-API'
 SCREENSHOT_PATH = '/home/jose/Projects/malware-patrol/ScreenShot-API/temp/screenshots'
 FIREFOX_PATH = '/usr/bin/firefox'
+TOR_PROFILE = 'TorProxy'
 
 class GetScreenshot(Resource):
     def post(self):
@@ -28,8 +29,9 @@ class GetScreenshot(Resource):
             full = request.json['options']['fullPage']
             formatType = request.json['options']['type']
             quality = request.json['options']['quality']
+            tor = request.json['options']['tor']
 
-            checker = Checker(url, full, formatType, quality)
+            checker = Checker(url, full, formatType, quality, tor)
             checkerAnswer = checker.verifyAll()
 
             if(checkerAnswer != 0):
@@ -42,7 +44,7 @@ class GetScreenshot(Resource):
             filename = 'mps_{}_{}'.format(ts, netloc)
 
             screenshot = Screenshot(SCREENSHOT_PATH, FIREFOX_PATH)
-            answer = screenshot.getImage(full, filename, url, formatType)
+            answer = screenshot.getImage(full, filename, url, formatType, tor, TOR_PROFILE)
 
             if(answer == 0):
                 mimeType = 'image/{}'.format(formatType)
