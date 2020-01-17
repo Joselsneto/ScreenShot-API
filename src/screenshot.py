@@ -3,7 +3,7 @@ import os
 from .errors import Errors
 from .imageConverter import ImageConverter
 
-TIMEOUT = 15
+# TIMEOUT = 15
 
 class Screenshot:
 
@@ -11,8 +11,8 @@ class Screenshot:
         self.screenshotPath = screenshotPath
         self.firefoxPath = firefoxPath
 
-    def createCommand(self, full, fileName, url, tor, torProfile, heigth = '800', width = '600'):
-        command = 'timeout {} {} --screenshot {}'.format(TIMEOUT, self.firefoxPath, fileName)
+    def createCommand(self, full, fileName, url, tor, torProfile, timeout, heigth = '800', width = '600'):
+        command = 'timeout {} {} --screenshot {}'.format(timeout, self.firefoxPath, fileName)
         if(full == False):
             command = '{} --window-size={},{}'.format(command, heigth, width)
         if(tor == True):
@@ -20,11 +20,11 @@ class Screenshot:
         command = '{} {}'.format(command, url)
         return command
 
-    def getImage(self, full, name, url, fmt, tor, torProfile, heigth = '800', width = '600'):        
+    def getImage(self, full, name, url, fmt, tor, torProfile, timeout, heigth = '800', width = '600'):        
         try:
             fileName = os.path.abspath('{}/{}.png'.format(self.screenshotPath, name))
             command = self.createCommand(full, fileName, url, tor, torProfile, heigth, width)
-            output = check_output(command, stderr=STDOUT, shell=True, timeout=TIMEOUT)
+            output = check_output(command, stderr=STDOUT, shell=True, timeout=timeout)
             newFile = os.path.abspath('{}/{}.{}'.format(self.screenshotPath, name, fmt))
             ImageConverter.convert(fileName, fmt, newFile)
             return 0

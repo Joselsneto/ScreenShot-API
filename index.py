@@ -30,8 +30,9 @@ class GetScreenshot(Resource):
             formatType = request.json['options']['type']
             quality = request.json['options']['quality']
             tor = request.json['options']['tor']
+            timeout = request.json['options']['timeout']
 
-            checker = Checker(url, full, formatType, quality, tor)
+            checker = Checker(url, full, formatType, quality, tor, timeout)
             checkerAnswer = checker.verifyAll()
 
             if(checkerAnswer != 0):
@@ -44,7 +45,7 @@ class GetScreenshot(Resource):
             filename = 'mps_{}_{}'.format(ts, netloc)
 
             screenshot = Screenshot(SCREENSHOT_PATH, FIREFOX_PATH)
-            answer = screenshot.getImage(full, filename, url, formatType, tor, TOR_PROFILE)
+            answer = screenshot.getImage(full, filename, url, formatType, tor, TOR_PROFILE, timeout)
 
             if(answer == 0):
                 mimeType = 'image/{}'.format(formatType)
