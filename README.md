@@ -20,7 +20,7 @@ To install all the necessary packages just use the following command:
 After installing the packages, you can run the project using the following command:
 
 ```shell
-./screenshotApi.sh start
+./screenshotApi.sh start_debug
 ```
 
 To stop the API, just use this command:
