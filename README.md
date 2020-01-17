@@ -5,7 +5,7 @@ A simple api that lets you take screenshot of webpages.
 
 ### Prerequisites
 
-For run this project you'll need python3 and pip3 installed.
+For run this project you'll need python3, pip3 and mozilla firefox installed.
 
 ### Running the project locally
 
