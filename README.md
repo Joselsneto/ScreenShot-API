@@ -5,7 +5,7 @@ A simple api that lets you take screenshot of webpages.
 
 ### Prerequisites
 
-For run this project you'll need python3 and pip3 installed.
+For run this project you'll need python3, pip3 and mozilla firefox installed.
 
 ### Running the project locally
 
@@ -20,7 +20,7 @@ To install all the necessary packages just use the following command:
 After installing the packages, you can run the project using the following command:
 
 ```shell
-./screenshotApi.sh start
+./screenshotApi.sh start_debug
 ```
 
 To stop the API, just use this command:
