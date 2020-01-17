@@ -8,14 +8,14 @@ case $1 in
     start_debug)
         echo "Starting screenshot API in debug mode"
         $PROJECT_PATH/src/deleteScreenshots.sh $SCREENSHOT_PATH &
-        $PROJECT_PATH/src/killFirefox.sh &
+        # $PROJECT_PATH/src/killFirefox.sh &
         python3 index.py &
         ;;
     start)
         # Change to production mode
         echo "Starting screenshot API"
         $PROJECT_PATH/src/deleteScreenshots.sh $SCREENSHOT_PATH &
-        $PROJECT_PATH/src/killFirefox.sh &
+        # $PROJECT_PATH/src/killFirefox.sh &
         ;;
     generate_key)
         NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
