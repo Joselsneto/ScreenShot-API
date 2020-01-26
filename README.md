@@ -28,3 +28,15 @@ To stop the API, just use this command:
 ```shell
 ./screenshotApi.sh stop
 ```
+
+### Deploying with apache2
+
+For deploy the project you need apache2 installed. If you don't have, just use the following line to install:
+
+```shell
+sudo apt install apache2
+```
+
+### Documentation
+
+To know more about how the API works read the [documentation.](DOCUMENTATION.md)
