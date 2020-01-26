@@ -32,8 +32,18 @@ case $1 in
     stop)
         echo "Stoping screenshot API"
         kill $(pgrep -f "/bin/sh ${PROJECT_PATH}/src/deleteScreenshots.sh")
-        kill $(pgrep -f "/bin/sh ${PROJECT_PATH}/src/killFirefox.sh")
+        # kill $(pgrep -f "/bin/sh ${PROJECT_PATH}/src/killFirefox.sh")
         kill $(pgrep -f 'python3 index.py')
+        ;;
+    restart_debug)
+        echo "Stoping screenshot API"
+        kill $(pgrep -f "/bin/sh ${PROJECT_PATH}/src/deleteScreenshots.sh")
+        # kill $(pgrep -f "/bin/sh ${PROJECT_PATH}/src/killFirefox.sh")
+        kill $(pgrep -f 'python3 index.py')
+        echo "Starting screenshot API in debug mode"
+        $PROJECT_PATH/src/deleteScreenshots.sh $SCREENSHOT_PATH &
+        # $PROJECT_PATH/src/killFirefox.sh &
+        python3 index.py &
         ;;
     *)
         echo "Usage: ./screenshotApi.sh {start_debug | start | generate_key | install}"

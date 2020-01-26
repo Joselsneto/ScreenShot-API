@@ -17,6 +17,7 @@ api = Api(app)
 KEYS_PATH = '/home/jose/Projects/malware-patrol/ScreenShot-API'
 SCREENSHOT_PATH = '/home/jose/Projects/malware-patrol/ScreenShot-API/temp/screenshots'
 FIREFOX_PATH = '/usr/bin/firefox'
+CHROME_PATH = '/usr/bin/google-chrome'
 TOR_PROFILE = 'TorProxy'
 
 class GetScreenshot(Resource):
@@ -24,15 +25,28 @@ class GetScreenshot(Resource):
         token = request.args.get('token')
         verify = VerifyKey(KEYS_PATH, token)
         if(verify.isAuthorized()):
-            url = request.json['url']
+            url = request.json.get('url')
             url = requote_uri(url)
-            full = request.json['options']['fullPage']
-            formatType = request.json['options']['type']
-            quality = request.json['options']['quality']
-            tor = request.json['options']['tor']
-            timeout = request.json['options']['timeout']
+            full = request.json['options'].get('fullPage')
+            formatType = request.json['options'].get('type')
+            quality = request.json['options'].get('quality')
+            tor = request.json['options'].get('tor')
+            timeout = request.json['options'].get('timeout')
+            browser = request.json['options'].get('browser')
+            height = request.json['options'].get('height')
+            width = request.json['options'].get('width')
+           
+            # Set defaults values
+            if(quality == None):
+                quality = 100
+            if(tor == None):
+                tor = False
+            if(height == None):
+                height = 600
+            if(width == None):
+                width = 800
 
-            checker = Checker(url, full, formatType, quality, tor, timeout)
+            checker = Checker(url, full, formatType, quality, tor, timeout, browser, height, width)
             checkerAnswer = checker.verifyAll()
 
             if(checkerAnswer != 0):
@@ -44,8 +58,8 @@ class GetScreenshot(Resource):
             ts = calendar.timegm(time.gmtime())
             filename = 'mps_{}_{}'.format(ts, netloc)
 
-            screenshot = Screenshot(SCREENSHOT_PATH, FIREFOX_PATH)
-            answer = screenshot.getImage(full, filename, url, formatType, tor, TOR_PROFILE, timeout)
+            screenshot = Screenshot(SCREENSHOT_PATH, FIREFOX_PATH, CHROME_PATH, TOR_PROFILE)
+            answer = screenshot.getImage(full, filename, url, formatType, tor, timeout, browser, height=height, width=width)
 
             if(answer == 0):
                 mimeType = 'image/{}'.format(formatType)

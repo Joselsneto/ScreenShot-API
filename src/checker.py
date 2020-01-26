@@ -4,13 +4,16 @@ import httplib2
 
 class Checker:
     
-    def __init__(self, url, full, formatType, quality, tor, timeout):
+    def __init__(self, url, full, formatType, quality, tor, timeout, browser, height, width):
         self.url = url
         self.full = full
         self.formatType = formatType
         self.quality = quality
         self.tor = tor
         self.timeout = timeout
+        self.browser = browser
+        self.height = height
+        self.width = width
 
     def verifyUrl(self):
         if(type(self.url) != str):
@@ -75,6 +78,37 @@ class Checker:
 
         return 0
 
+    def verifyBrowser(self):
+        if(self.browser == None):
+            return Errors.REQUIRED_BROWSER
+
+        if(type(self.browser) != str):
+            return Errors.BROWSER_IS_NOT_STRING
+        
+        for s in Errors.VALID_BROWSERS:
+            if(s == self.browser):
+                return 0
+        
+        return Errors.INVALID_BROWSER
+
+    def verifyHeight(self):
+        if(type(self.height) != int):
+            return Errors.HEIGHT_IS_NOT_INT
+        
+        if(self.height < 400):
+            return Errors.HEIGHT_OUT_OF_BOUNDS
+        
+        return 0
+    
+    def verifyWidth(self):
+        if(type(self.width) != int):
+            return Errors.WIDTH_IS_NOT_INT
+
+        if(self.width < 400 or self.width > 1920):
+            return Errors.WIDTH_OUT_OF_BOUNDS
+
+        return 0
+
     def verifyAll(self):
         answer = self.verifyUrl()
         if(answer != 0):
@@ -100,4 +134,16 @@ class Checker:
         if(answer != 0):
             return answer
 
+        answer = self.verifyBrowser()
+        if(answer != 0):
+            return answer
+
+        answer = self.verifyHeight()
+        if(answer != 0):
+            return answer
+
+        answer = self.verifyWidth()
+        if(answer != 0):
+            return answer
+            
         return 0
