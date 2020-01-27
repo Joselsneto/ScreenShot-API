@@ -7,11 +7,12 @@ from .imageConverter import ImageConverter
 
 class Screenshot:
 
-    def __init__(self, screenshotPath, firefoxPath, chromePath, torProfile):
+    def __init__(self, screenshotPath, firefoxPath, chromePath, torProfile, torURL):
         self.screenshotPath = screenshotPath
         self.firefoxPath = firefoxPath
         self.chromePath = chromePath
         self.torProfile = torProfile
+        self.torURL = torURL
 
     def createCommand(self, full, fileName, url, tor, timeout, browser, height = '600', width = '800'):
         if(browser == 'firefox'):
@@ -24,8 +25,10 @@ class Screenshot:
             return command
         elif(browser == 'google-chrome'):
             # TODO verify if exist a away that chrome can get screenshot of the entire site
-            # TODO verify how I can set TOR profile on chrome
-            command = 'timeout {} google-chrome --headless --disable-gpu --screenshot={} --window-size={},{} --default-background-color=0 {}'.format(timeout, fileName, width, height, url)
+            command = 'timeout {} google-chrome --headless --disable-gpu --screenshot={} --window-size={},{} --default-background-color=0'.format(timeout, fileName, width, height)
+            if(tor == True):
+                command = '{} --proxy-server="{}"'.format(command, self.torURL)
+            command = '{} {}'.format(command, url)
             return command
 
     def getImage(self, full, name, url, fmt, tor, timeout, browser, height = '600', width = '800'):        

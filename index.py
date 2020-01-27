@@ -19,6 +19,7 @@ SCREENSHOT_PATH = '/home/jose/Projects/malware-patrol/ScreenShot-API/temp/screen
 FIREFOX_PATH = '/usr/bin/firefox'
 CHROME_PATH = '/usr/bin/google-chrome'
 TOR_PROFILE = 'TorProxy'
+TOR_URL = 'socks://127.0.0.1:9050'
 
 class GetScreenshot(Resource):
     def post(self):
@@ -58,7 +59,7 @@ class GetScreenshot(Resource):
             ts = calendar.timegm(time.gmtime())
             filename = 'mps_{}_{}'.format(ts, netloc)
 
-            screenshot = Screenshot(SCREENSHOT_PATH, FIREFOX_PATH, CHROME_PATH, TOR_PROFILE)
+            screenshot = Screenshot(SCREENSHOT_PATH, FIREFOX_PATH, CHROME_PATH, TOR_PROFILE, TOR_URL)
             answer = screenshot.getImage(full, filename, url, formatType, tor, timeout, browser, height=height, width=width)
 
             if(answer == 0):
