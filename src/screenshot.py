@@ -25,7 +25,7 @@ class Screenshot:
             return command
         elif(browser == 'google-chrome'):
             # TODO verify if exist a away that chrome can get screenshot of the entire site
-            command = 'timeout {} google-chrome --headless --disable-gpu --screenshot={} --window-size={},{} --default-background-color=0'.format(timeout, fileName, width, height)
+            command = 'timeout {} google-chrome --headless --disable-gpu --screenshot={} --window-size={},{} --hide-scrollbars'.format(timeout, fileName, width, height)
             if(tor == True):
                 command = '{} --proxy-server="{}"'.format(command, self.torURL)
             command = '{} {}'.format(command, url)
