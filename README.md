@@ -5,6 +5,16 @@ A simple api that lets you take screenshot of webpages.
 
 For run this project you'll need python3, pip3, google-chrome and mozilla firefox installed.
 
+## Generate access key
+
+To use the API you need to generate the key that will be used as token, using the following command:
+
+```sh
+./screenshotApi.sh generate_key "description"
+```
+
+Save this key, you'll need for make requests, if you don't remember the key, you can access at authorized_keys.
+
 ## Running the project locally
 
 First of all you need to change the paths on screenshotApi.sh and index.py, using the paths that you want to use, make sure that the paths are the same on screenshotApi.sh and index.py.
@@ -14,14 +24,6 @@ To install all the necessary packages just use the following command:
 ```sh
 ./screenshotApi.sh install
 ```
-
-To use the API you need to generate the key that will be used as token, using the following command:
-
-```sh
-./screenshotApi.sh generate_key "description"
-```
-
-Save this key, you'll need for make requests, if you don't remember the key, you can access at authorized_keys.
 
 After installing the packages, you can run the project using the following command:
 
